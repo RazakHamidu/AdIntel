@@ -1,0 +1,360 @@
+{
+  "name": "AdIntel Deep Research AI",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        272
+      ],
+      "id": "4bdac16b-1272-47ad-b0f4-383997d54ec1",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "YktlbaYzApMDhbtG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=nome dela azieda: {{ $json.body.companyName }}\nsito web: {{ $json.body.websiteUrl }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Sei AdIntel, un’intelligenza artificiale specializzata in analisi di brand, marketing strategico e creazione di campagne pubblicitarie multi-piattaforma.\nRiceverai in input due dati: nome_azienda e sito_web.\n\nHai accesso a un tool di Deep Search che ti permette di raccogliere e analizzare automaticamente informazioni pubbliche sull’azienda da più fonti, tra cui:\n\nIl sito web ufficiale (analisi contenuti, SEO e meta tag)\n\nSocial media (Instagram, Facebook, LinkedIn, TikTok)\n\nRecensioni online e blog\n\nKeyword e trend di ricerca\n\nCompetitor diretti e posizionamento nel mercato\n\nIl tuo compito è:\n\nEseguire una ricerca automatica e profonda sull’azienda,\n\nCreare un profilo marketing completo e pronto all’uso,\n\nGenerare idee creative, copy e prompt visivi/video ottimizzati per Meta Ads, TikTok Ads e Google Ads.\n\n🔹 FASE 1 — Deep Search & Analisi del brand\n\nUtilizza il tuo tool di Deep Search per esplorare e sintetizzare:\n\nDescrizione sintetica del brand (chi è, cosa fa, perché esiste)\n\nMission, valori e posizionamento\n\nTone of voice (stile comunicativo prevalente)\n\nProdotti o servizi principali\n\nPubblico ideale e pain points più comuni\n\nUnique Selling Proposition (USP)\n\nPrincipali competitor e differenze chiave\n\nParole chiave più rilevanti (SEO e paid search)\n\nSentiment online (positivo/negativo/neutro, con motivazione sintetica)\n\nRiassumi tutto come se stessi scrivendo un brief pubblicitario strategico per un team creativo.\n\n🔹 FASE 2 — Profilo marketing sintetico\n\nA partire dai dati raccolti, crea un profilo marketing operativo, pronto per l’utilizzo da parte di un advertiser o media buyer.\nIncludi:\n\nPosizionamento competitivo del brand\n\nBuyer persona (età, interessi, comportamento, motivazioni d’acquisto)\n\nObiettivi pubblicitari ideali (awareness, conversion, lead generation)\n\nTone e stile creativo più efficace per la comunicazione\n\nCanali digitali più adatti al tipo di brand\n\nFornisci anche 3 insight strategici concreti che un copywriter o marketer può usare per costruire messaggi efficaci.\n\n🔹 FASE 3 — Generazione creativa multicanale\n\nGenera ora idee pubblicitarie e copy specifici per ciascuna piattaforma.\n\n🟦 Meta Ads\n\nObiettivo della campagna\n\nHook d’apertura (massimo impatto nei primi 2 secondi)\n\nCopy principale (max 125 caratteri, tono diretto e persuasivo)\n\nCall to Action (CTA)\n\nPrompt per immagine o video in stile Meta Ads (formato quadrato o 4:5, visivamente coerente col brand)\n\n🎵 TikTok Ads\n\nIdea video breve o storytelling (max 3 scene)\n\nHook iniziale visivo o sonoro\n\nScript sintetico (descrizione delle 3 scene principali)\n\nCTA finale coerente col tono TikTok\n\nPrompt per generare video verticale realistico o UGC-style\n\n🔍 Google Ads\n\n3 headline efficaci (max 30 caratteri ciascuna)\n\n2 descrizioni (max 90 caratteri ciascuna)\n\nKeyword target consigliate\n\nSuggerimento per ottimizzare la landing page in base alla proposta di valore del brand\n\n🔹 FASE 4 — Output finale\n\nFornisci l’output finale in modo chiaro, ordinato e leggibile.\nDividilo in sezioni:\n\nAnalisi del brand (Deep Search Results)\n\nProfilo marketing sintetico\n\nIdee e copy per Meta Ads\n\nIdee e copy per TikTok Ads\n\nIdee e copy per Google Ads\n\nTutto deve essere scritto in italiano, con tono professionale, strategico e creativo.\nOgni parte deve essere subito utilizzabile da un advertiser per creare campagne pubblicitarie reali."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -192,
+        -144
+      ],
+      "id": "eae055be-5525-4f1c-b64f-a5a9502e485d",
+      "name": "AdIntel Deep Research AI"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"brand_analysis\": {\n    \"nome_azienda\": \"EcoStep\",\n    \"sito_web\": \"https://www.ecostep.it\",\n    \"descrizione_brand\": \"EcoStep è un marchio italiano che produce sneaker ecosostenibili realizzate con materiali riciclati e design minimalista.\",\n    \"mission_valori\": [\"Sostenibilità\", \"Design etico\", \"Produzione italiana\"],\n    \"tone_of_voice\": \"moderno, naturale, eco-friendly\",\n    \"prodotti_servizi\": [\"Sneaker uomo\", \"Sneaker donna\", \"Accessori riciclati\"],\n    \"target_clienti\": \"Giovani adulti 20-40 anni attenti all’ambiente e allo stile\",\n    \"usp\": \"Scarpe leggere, realizzate con plastica riciclata e produzione 100% italiana.\",\n    \"competitor\": [\"VEJA\", \"Allbirds\", \"Womsh\"],\n    \"keyword_rilevanti\": [\"moda sostenibile\", \"scarpe riciclate\", \"eco fashion\"],\n    \"sentiment_online\": \"Positivo (media 4.6/5 da recensioni social e blog)\"\n  },\n\n  \"marketing_profile\": {\n    \"posizionamento\": \"EcoStep si posiziona nel mercato come brand premium di moda sostenibile, con focus su stile e impatto ambientale.\",\n    \"buyer_persona\": {\n      \"nome\": \"Giulia\",\n      \"eta\": \"29\",\n      \"interessi\": [\"moda etica\", \"fitness\", \"viaggi\"],\n      \"motivazioni\": \"Vuole vestirsi bene rispettando l’ambiente\"\n    },\n    \"obiettivi_pubblicitari\": [\"Aumentare le vendite online\", \"Brand awareness sostenibile\"],\n    \"tone_creativo\": \"ispirazionale e autentico\",\n    \"piattaforme_rilevanti\": [\"Meta Ads\", \"TikTok Ads\"],\n    \"insight_strategici\": [\n      \"Comunicare il design minimalista come simbolo di consapevolezza\",\n      \"Mostrare i materiali riciclati per aumentare fiducia e trasparenza\",\n      \"Creare contenuti UGC per dimostrare comfort e stile quotidiano\"\n    ]\n  },\n\n  \"creative_assets\": {\n    \"meta_ads\": {\n      \"obiettivo\": \"Aumentare le vendite online\",\n      \"hook\": \"Cammina leggero, lascia un’impronta verde 🌱\",\n      \"copy_principale\": \"Sneaker ecosostenibili made in Italy. Scopri lo stile che rispetta il pianeta.\",\n      \"cta\": \"Acquista ora\",\n      \"prompt_visivo\": \"Immagine lifestyle con ragazza che indossa sneaker bianche EcoStep su sfondo verde chiaro, luce naturale, stile moderno e pulito.\"\n    },\n\n    \"tiktok_ads\": {\n      \"concept_video\": \"Storytelling di 10 secondi: una persona getta una bottiglia di plastica → transizione → indossa scarpe EcoStep fatte con quella plastica.\",\n      \"hook_audio\": \"‘Ogni passo può cambiare il mondo’\",\n      \"script\": [\n        \"Scene 1: Rifiuto plastico nella natura\",\n        \"Scene 2: Produzione sneaker in materiale riciclato\",\n        \"Scene 3: Persone che camminano felici in città\"\n      ],\n      \"cta_finale\": \"Scegli il cambiamento. #EcoStep\",\n      \"prompt_video\": \"Video verticale UGC-style con luce naturale, vibe eco-friendly, transizioni fluide, musica soft indie.\"\n    },\n\n    \"google_ads\": {\n      \"headline\": [\n        \"Sneaker Ecologiche Made in Italy\",\n        \"Moda Sostenibile per Ogni Giorno\",\n        \"Cammina Green con EcoStep\"\n      ],\n      \"description\": [\n        \"Scopri le sneaker riciclate più leggere di sempre.\",\n        \"EcoStep: comfort, design e sostenibilità.\"\n      ],\n      \"keyword_target\": [\"scarpe ecosostenibili\", \"sneaker ecologiche\", \"moda green\"],\n      \"landing_page_suggestion\": \"Ottimizzare la home page con focus su comfort + materiali riciclati.\"\n    }\n  },\n\n  \"deep_search_sources\": {\n    \"analizzati\": {\n      \"sito_web\": \"https://www.ecostep.it\",\n      \"instagram\": \"https://instagram.com/ecostep\",\n      \"facebook\": \"https://facebook.com/ecostep\",\n      \"blog\": \"https://blog.ecostep.it\",\n      \"recensioni\": \"Trustpilot, Google Reviews\"\n    },\n    \"competitor_trovati\": [\"VEJA\", \"Allbirds\", \"Womsh\"],\n    \"trend_keyword\": [\"eco shoes\", \"sustainable fashion\", \"green lifestyle\"]\n  },\n\n  \"metadata\": {\n    \"timestamp\": \"2025-10-25T16:30:00Z\",\n    \"versione_modello\": \"v1.2\",\n    \"stato\": \"success\",\n    \"lingua_output\": \"it\"\n  }\n}\n",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        176,
+        176
+      ],
+      "id": "7862ad5b-4ca6-45dc-a500-d822c68e0c80",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "test",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        -144
+      ],
+      "id": "081abca3-83b1-4068-bd7b-cd64191cc6a9",
+      "name": "Webhook",
+      "webhookId": "b6aad81f-bbb0-46d0-a60a-d8655a103fbb"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.headers.host }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -352,
+        96
+      ],
+      "id": "013388c8-7d88-4036-8967-8a1ac8e5573b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "=Utilizza il tool di Deep Search per esplorare e sintetizzare:\n\nDescrizione sintetica del brand (chi è, cosa fa, perché esiste)\n\nMission, valori e posizionamento\n\nTone of voice (stile comunicativo prevalente)\n\nProdotti o servizi principali\n\nPubblico ideale e pain points più comuni\n\nUnique Selling Proposition (USP)\n\nPrincipali competitor e differenze chiave\n\nParole chiave più rilevanti (SEO e paid search)\n\nSentiment online (positivo/negativo/neutro, con motivazione sintetica)\n\nRiassumi tutto come se stessi scrivendo un brief pubblicitario strategico per un team creativo.",
+        "model": "sonar-deep-research",
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        96
+      ],
+      "id": "0e9a417f-5586-454c-8395-21dd6a6f57fc",
+      "name": "Deep Search",
+      "credentials": {
+        "perplexityApi": {
+          "id": "Aw073J0eIzIiV3Tp",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        160,
+        -144
+      ],
+      "id": "65d37d2e-1842-4ed3-9a35-9a8eeb9d7582",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {
+    "AdIntel Deep Research AI": [
+      {
+        "json": {
+          "output": {
+            "brand_analysis": {
+              "nome_azienda": "Nike",
+              "sito_web": "https://www.nike.com/it/",
+              "descrizione_brand": "Nike è un'azienda leader globale nella progettazione, sviluppo, produzione, marketing e vendita di calzature, abbigliamento, attrezzature, accessori e servizi correlati per lo sport e il lifestyle. La sua ragione d'essere è ispirare atleti di ogni livello a migliorare attraverso l'innovazione e il design.",
+              "mission_valori": [
+                "Ispirare e innovare ogni atleta nel mondo.",
+                "Performance e qualità.",
+                "Sostenibilità e impatto sociale.",
+                "Inclusione e diversità."
+              ],
+              "tone_of_voice": "Energico, ispirazionale, motivazionale, autorevole, diretto, ambizioso.",
+              "prodotti_servizi": [
+                "Calzature sportive (running, basket, training, calcio)",
+                "Abbigliamento sportivo e lifestyle",
+                "Attrezzature e accessori",
+                "App fitness (Nike Training Club, Nike Run Club)"
+              ],
+              "target_clienti": "Atleti professionisti e amatoriali, appassionati di lifestyle e moda, persone attive e attente al benessere.",
+              "usp": "Innovazione tecnologica costante, storytelling ispirazionale \"Just Do It\", endorsement di atleti iconici, forte presenza culturale nel lifestyle, design distintivo.",
+              "competitor": [
+                "Adidas",
+                "Puma",
+                "Under Armour",
+                "Lululemon"
+              ],
+              "keyword_rilevanti": [
+                "scarpe running",
+                "abbigliamento sportivo",
+                "Nike Air Force 1",
+                "Nike Jordan",
+                "scarpe da ginnastica",
+                "allenamento Nike",
+                "moda sportiva Nike",
+                "sostenibilità Nike"
+              ],
+              "sentiment_online": "Prevalentemente positivo, sostenuto da forte brand loyalty, innovazione percepita e campagne marketing di successo. Critiche occasionali su prezzo o disponibilità."
+            },
+            "marketing_profile": {
+              "posizionamento": "Leader indiscusso nel mercato globale di abbigliamento e calzature sportive, posizionato come brand premium e aspirazionale che ispira al miglioramento attraverso innovazione e qualità.",
+              "buyer_persona": {
+                "nome": "L'Atleta Urbano",
+                "eta": "18-35 anni",
+                "interessi": [
+                  "Sport (running, basket, training)",
+                  "Moda e lifestyle",
+                  "Benessere",
+                  "Musica",
+                  "Sostenibilità",
+                  "Social media",
+                  "Tecnologia"
+                ],
+                "motivazioni": "Migliorare le performance, esprimere la propria identità e stile, sentirsi parte di una comunità, seguire le tendenze, desiderio di qualità e durata."
+              },
+              "obiettivi_pubblicitari": [
+                "Awareness (lancio prodotti, rafforzamento brand)",
+                "Conversion (vendite online e in negozio)",
+                "Lead Generation (iscrizioni app e newsletter)",
+                "Loyalty & Retention (engagement e programmi fedeltà)"
+              ],
+              "tone_creativo": "Audace, dinamico, motivazionale, visivamente impattante, autentico, inclusivo, con un mix di estetica performante e lifestyle.",
+              "piattaforme_rilevanti": [
+                "Instagram",
+                "TikTok",
+                "YouTube",
+                "Google Search",
+                "Facebook"
+              ],
+              "insight_strategici": [
+                "\"Oltre il prodotto, l'ispirazione al movimento\": focalizzarsi sul potere del prodotto di spingere l'individuo a superare i limiti.",
+                "\"Community e appartenenza\": evidenziare il senso di comunità globale attraverso UGC e testimonianze reali.",
+                "\"Innovazione tangibile e storytelling emotivo\": comunicare la tecnologia attraverso storie di successo e benefici concreti."
+              ]
+            },
+            "creative_assets": {
+              "meta_ads": {
+                "obiettivo": "Aumentare le conversioni per le nuove scarpe running e l'awareness della tecnologia.",
+                "hook": "(Video) Senti la differenza? È l'innovazione che ti spinge oltre.",
+                "copy_principale": "Vola sulla pista! Le nuove Nike [Modello] con [Tecnologia] offrono ammortizzazione reattiva e ritorno di energia. Supera i tuoi limiti. #JustDoIt",
+                "cta": "Acquista Ora",
+                "prompt_visivo": "Video dinamico (formato 4:5) con primi piani sulle nuove scarpe Nike [Nome modello] in azione su diversi terreni. Transizioni rapide che mostrano la tecnologia [Nome Tecnologia] in grafica animata. Inquadrature di runner sorridenti e sicuri di sé, focus sull'espressione di facilità e potenza. Colori vibranti e moderni."
+              },
+              "tiktok_ads": {
+                "concept_video": "Brevi clip \"challenge\" o \"transformation\" con persone che iniziano un percorso fitness/running con le app Nike e ottengono risultati.",
+                "hook_audio": "Suono energico con inquadratura veloce di persona che sbuffa in allenamento, seguita da sorriso determinato. Testo overlay: \"Stanco della solita routine?\"",
+                "script": [
+                  "Scena 1: Persona frustrata che cerca motivazione o fa esercizi sbagliati. Testo: \"Hai bisogno di una guida?\"",
+                  "Scena 2: Persona che scopre l'app Nike, si allena con coach virtuale o segue piano di corsa. Inquadrature dinamiche, motivanti, con testi overlay sui benefici dell'app.",
+                  "Scena 3: Persona energica e soddisfatta, magari al traguardo o dopo l'allenamento, con un sorriso. Testo: \"Sblocca il tuo potenziale. Inizia oggi con Nike.\""
+                ],
+                "cta_finale": "Scarica l'App!",
+                "prompt_video": "Video verticale (9:16) con montaggio rapido e autentico in stile UGC. Mostra persone reali (diverse età/fisicità) che usano app Nike Training Club o Run Club in situazioni quotidiane. Movimenti fluidi, transizioni veloci, musica di tendenza energica. Il video deve trasmettere accessibilità, motivazione e successo personale."
+              },
+              "google_ads": {
+                "headline": [
+                  "Scarpe Running Nike Uomo",
+                  "Massima Performance in Corsa",
+                  "Trova il Tuo Modello Ideale"
+                ],
+                "description": [
+                  "Scopri l'ampia selezione di scarpe running Nike da uomo. Innovazione, comfort e stile per ogni tipo di corsa. Spedizione gratuita!",
+                  "Dai sentieri all'asfalto, Nike ha la scarpa perfetta per le tue sfide. Tecnologie avanzate per migliorare la tua corsa."
+                ],
+                "keyword_target": [
+                  "scarpe running uomo nike",
+                  "nike scarpe corsa",
+                  "migliori scarpe running nike",
+                  "prezzi scarpe nike running",
+                  "offerte nike running uomo",
+                  "scarpe nike pegasus",
+                  "scarpe nike react"
+                ],
+                "landing_page_suggestion": "La landing page dovrebbe essere una categoria specifica \"Scarpe Running Uomo\" sul sito Nike. Dovrebbe presentare filtri chiari per tipo di corsa, tecnologia, misura, colore e prezzo. In alto, un banner ispirazionale con atleti in azione e un messaggio che rafforzi i benefici della corsa con Nike. Ogni prodotto dovrebbe avere descrizioni dettagliate, recensioni clienti e un pulsante \"Aggiungi al carrello\" ben visibile."
+              }
+            },
+            "deep_search_sources": {
+              "analizzati": {
+                "sito_web": "Contenuti, SEO e meta tag del sito ufficiale Nike.com/it",
+                "instagram": "Profilo Instagram ufficiale Nike, engagement, tipo di contenuti visivi e interazioni.",
+                "facebook": "Pagina Facebook ufficiale Nike, campagne, post e commenti degli utenti.",
+                "blog": "Articoli e notizie relativi al brand Nike, settore sportivo e lifestyle.",
+                "recensioni": "Recensioni online di prodotti Nike su e-commerce e piattaforme specializzate."
+              },
+              "competitor_trovati": [
+                "Adidas",
+                "Puma",
+                "Under Armour",
+                "Lululemon"
+              ],
+              "trend_keyword": [
+                "Innovazione calzature sportive",
+                "Abbigliamento sostenibile sport",
+                "Tendenze moda athleisure",
+                "Allenamento fitness a casa",
+                "Community running online"
+              ]
+            },
+            "metadata": {
+              "timestamp": "2023-10-27T10:30:00Z",
+              "versione_modello": "AdIntel-v1.0",
+              "stato": "Completato",
+              "lingua_output": "Italiano"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AdIntel Deep Research AI",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AdIntel Deep Research AI",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AdIntel Deep Research AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AdIntel Deep Research AI",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deep Search": {
+      "ai_tool": [
+        []
+      ]
+    },
+    "AdIntel Deep Research AI": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "680d7429-4461-460b-b220-165e1e2a0b45",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6d6b0b5855e84055e8afd9dfe6dfcae91bd143c4632381feb760888a45b80156"
+  },
+  "id": "0vOzBhVWnazVkbcL",
+  "tags": []
+}
