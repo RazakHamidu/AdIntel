@@ -1,5 +1,87 @@
-# AdIntel
- Workflow n8n per analisi di brand, ricerca marketing e generazione di idee pubblicitarie multicanale
+AdIntel 
+
+---
+
+# 🧠 AdIntel Deep Research AI
+
+### Workflow n8n per analisi di brand, ricerca marketing e generazione di idee pubblicitarie multicanale
+
+---
+
+## 📘 Panoramica generale
+
+AdIntel Deep Research AI è un workflow n8n progettato per automatizzare un processo di ricerca e analisi del brand utilizzando AI generativa e fonti web dinamiche.
+
+Riceve in input il nome e il sito web di un’azienda e produce in output:
+
+* Un’analisi dettagliata del brand (mission, USP, tono di voce, competitor, sentiment, keyword)
+* Un profilo marketing sintetico (posizionamento, buyer persona, obiettivi, insight)
+* Idee creative per Meta Ads, TikTok Ads e Google Ads
+* Output finale strutturato in formato JSON, pronto per essere utilizzato in altre automazioni o dashboard.
+
+---
+
+## ⚙️ Architettura del workflow
+
+| Nodo                            | Tipo                                              | Funzione principale                                                                         |
+| ------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| 🟢 Webhook                  | n8n-nodes-base.webhook                          | Riceve la richiesta HTTP POST contenente companyName e websiteUrl                       |
+| 🧩 AdIntel Deep Research AI | @n8n/n8n-nodes-langchain.agent                  | Agente AI principale: orchestra i modelli e i tool                                          |
+| 🔵 Google Gemini Chat Model | @n8n/n8n-nodes-langchain.lmChatGoogleGemini     | Modello linguistico LLM di Google per generazione testuale e reasoning strategico           |
+| 🧠 Simple Memory            | @n8n/n8n-nodes-langchain.memoryBufferWindow     | Gestione del contesto conversazionale e coerenza tra richieste                              |
+| 🔍 Deep Search              | n8n-nodes-base.perplexityTool                   | Effettua ricerche contestuali e analisi dei dati pubblici (siti, social, trend, recensioni) |
+| 📦 Structured Output Parser | @n8n/n8n-nodes-langchain.outputParserStructured | Converte l’output AI in JSON validato secondo schema                                        |
+| 📨 Respond to Webhook       | n8n-nodes-base.respondToWebhook                 | Invia la risposta JSON finale al client o applicazione chiamante                            |
+
+---
+
+## 🧩 Flusso logico step-by-step
+
+### 1️⃣ Ricezione dei dati (Webhook)
+
+* Endpoint configurato:
+  POST /webhook/test
+* Input previsto nel body:
+
+  
+  {
+    "companyName": "Nome Azienda",
+    "websiteUrl": "https://www.sitoazienda.com"
+  }
+  
+* Il webhook attiva l’agente AI principale, passando i parametri al flusso.
+
+---
+
+### 2️⃣ Agente AI — “AdIntel Deep Research AI”
+
+Questo nodo è il cuore del sistema.
+Utilizza il framework LangChain integrato in n8n per orchestrare:
+
+* il modello linguistico (Google Gemini)
+* la memoria conversazionale (Simple Memory)
+* il tool esterno (Deep Search via Perplexity)
+* e l’output parser strutturato
+
+L’agente riceve un prompt complesso che definisce:
+
+* le 4 fasi operative (Deep Search, Profilo Marketing, Generazione Creativa, Output Finale)
+* le regole di scrittura (tono professionale, creativo, linguaggio italiano)
+* la struttura dei risultati attesi
+
+---
+
+### 3️⃣ Deep Search (Perplexity Tool)
+
+* Utilizza un modello esterno “sonar-deep-research”
+* Effettua ricerche automatiche su:
+
+  * sito web aziendale
+  * social media (Instagram, Facebook, LinkedIn, TikTok)
+  * recensioni, blog, keyword trend
+  * competitor
+* Sintetizza i dati in linguaggio naturale per supportare l’AI nella generazione del profilo marketing.
+
 
 Credenziale richiesta:
 🔑 perplexityApi (account Perplexity configurato in n8n)
@@ -20,7 +102,8 @@ Credenziale richiesta:
 * Lo schema JSON garantisce coerenza e leggibilità del risultato.
 * Esempio di struttura di output:
 
-    {
+  
+  {
     "brand_analysis": {...},
     "marketing_profile": {...},
     "creative_assets": {...},
@@ -127,6 +210,3 @@ AdIntel Deep Research AI è un workflow pronto per l’automazione del marketing
 integra ricerca, analisi strategica e creatività pubblicitaria in un unico flusso intelligente, scalabile e personalizzabile.
 
 ---
-
-Vuoi che ora ti generi anche un file `README.md` completo pronto da copiare su GitHub (con struttura, badge e tabella di configurazione dei nodi)?
-Posso anche includere una sezione di installazione passo-passo per utenti n8n.
